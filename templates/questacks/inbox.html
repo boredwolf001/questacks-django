@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+{% if not inbox_items %}
+<h1 class="display-4">No Inbox Items</h1>
+{% else %}
+{% for item in inbox_items %}
+<div class="card p-2" style="width: 400px;">
+      <div style="position: relative;" class="card-body px-0">
+            <div class="mb-3">
+                  <small class="text-muted" style="position: absolute; top: 0; left: 0;">{{ item.inbox_type }}</small>
+                  <small class="text-muted" style="position: absolute; top: 0; right: 0;">
+                        {{ item.created_at|naturaltime}}
+                  </small>
+            </div>
+            <p class="card-title">
+                  <a href="{% url 'base:view_question' item.target_question.id %}">{{ item.target_question.title }}</a>
+            </p>
+            <small class="card-subtitle">
+                  {{ item.message|striptags }}
+            </small>
+      </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock content %}

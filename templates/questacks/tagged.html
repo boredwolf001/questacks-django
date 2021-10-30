@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+      {% if questions %}
+        {% for question in questions %}
+          
+            <!-- Questions -->
+            {% include 'partials/questions.html' %}
+            
+        {% endfor %}
+      {% else %}
+
+      {% endif %}
+{% endblock content %}

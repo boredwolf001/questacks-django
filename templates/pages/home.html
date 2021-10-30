@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="px-2 d-flex justify-content-between align-items-center">
+      <h1>Newest Questions</h1>
+      <a href="{% url 'base:ask_question' %}" class="btn btn-primary">Ask Question</a>
+</div>
+{% if questions %}
+{% for question in questions %}
+
+<!-- Questions -->
+{% include 'partials/questions.html' %}
+
+{% endfor %}
+{% else %}
+
+{% endif %}
+{% endblock content %}

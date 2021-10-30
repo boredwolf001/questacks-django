@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% load markdownify %}
+{% block content %}
+<div style="position: relative; width: 1000px">
+  <h1>{{ question.title }}</h1>
+  <div class="stats d-flex justify-content-around align-items-start" style="width: 390px">
+    <small>
+      <div class="d-inline mr-2 text-muted">Asked</div>
+      {{ question.created_at|naturaltime }}
+    </small>
+    <small>
+      <div class="d-inline mr-2 text-muted">Active</div>
+      {{ question.user.last_login|naturaltime }}
+    </small>
+    <small>
+      <div class="d-inline mr-2 text-muted">Viewed</div>
+      {{ question.views }} time{{ question.views|pluralize }}
+    </small>
+  </div>
+  <hr />
+  <div class="mt-4">{{ question_body|safe }}</div>
+
+  <div class="d-flex justify-content-between mt-3">
+    <div style="width: max-content">
+      {% for tag in question.tag.all %}
+      <div style="background: #d0e3f1; font-size: 12px" class="rounded d-inline mx-2 p-2">
+        <a style="text-decoration: none !important" href="{% url 'base:tagged' tag %}">{{ tag }}</a>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="rounded p-2 mb-3" style="background-color: #d9eaf7">
+      <p style="font-size: 12px" class="text-muted m-0 p-0">
+        Asked {{ question.created_at|date:'M, n' }} 'at {{ question.created_at|date:'H:i' }}
+      </p>
+      <img class="d-inline-block img-fluid p-0" src="{{ question.user.profile.profile_img.url }}"
+        alt="{{ question.user.username }}" style="width: 35px; height: 35px; border-radius: 4px; object-fit: cover" />
+      <div class="d-inline-block">
+        <a href="{% url 'base:profile' question.user.id %}">{{ question.user.username }}</a><br />
+        <div style="font-size: 12px" class="active">
+          <label class="text-muted">Active</label>
+          <label>{{ question.user.last_login|naturaltime }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mt-5 d-block">
+  {% if question.answer_set.count > 0 %}
+  <h3 class="mb-3">
+    {{ question.answer_set.count }}
+    Answer{{question.answer_set.count|pluralize}}
+  </h3>
+  <div>
+    {% for answer in question.answer_set.all %}
+    <div class="card mb-2;" style="width: 600px;">
+      <div class="card-body">
+        <div class="card-text">{{ answer.answer_text|safe }}</div>
+        <div class="rounded p-2 mb-3" style="background-color: #d9eaf7; width: fit-content; float: right;">
+          <p style="font-size: 12px" class="text-muted m-0 p-0">
+            Answered {{ answer.created_at|date:'M, n' }} 'at {{ question.created_at|date:'H:i' }}
+          </p>
+          <img class="d-inline-block img-fluid p-0" src="{{ answer.user.profile.profile_img.url }}"
+            alt="{{ answer.user.username }}" style="width: 35px; height: 35px; border-radius: 4px; object-fit: cover" />
+          <div class="d-inline-block">
+            <a href="{% url 'base:profile' question.user.id %}">{{ answer.user.username }}</a><br />
+            <div style="font-size: 12px" class="active">
+              <label class="text-muted">Active</label>
+              <label>{{ answer.user.last_login|naturaltime }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <h4 class="mt-5 mb-3">Your Answer</h4>
+  <form action="{% url 'base:new_answer' question.id %}" method="POST">
+    {% csrf_token %} {% crispy form %}
+    <button id="submit" type="submit" class="btn btn-primary d-block my-3">
+      Post Your Answer
+    </button>
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+<!-- <script>
+  if ($('textarea[name=answer_text]').val().trim() == '') {
+    $('#submit').attr('disabled', true)
+  }
+
+  $('textarea[name=answer_text]').on('input', () => {
+    $('#submit').attr('disabled', true)
+    val = $(this).val().trim()
+    if (val.length > 0) {
+      $('#submit').attr('disabled', false)
+    }
+  })
+</script> -->
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% load humanize %}
+
+<div class="mr-3" style="font-size: 14px !important">
+  <div
+    style="border-color: #5eba7d !important; display: inline-block"
+    class="text-center card mx-2"
+  >
+    <div
+      class="card-body p-0"
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 54px;
+        height: 54px;
+      "
+    >
+      <small class="card-title d-block">{{ question.answer_set.count }}</small>
+      <small class="card-subtitle text-muted"
+        >answer{{ question.answer_set.count|pluralize }}</small
+      >
+    </div>
+  </div>
+
+  <div
+    style="border-color: #5eba7d !important; display: inline-block"
+    class="text-center card mx-2"
+  >
+    <div
+      class="card-body p-0"
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+      "
+    >
+      <small class="card-title">{{ question.views }}</small>
+      <small class="card-subtitle text-muted"
+        >view{{ question.views|pluralize }}</small
+      >
+    </div>
+  </div>
+</div>
