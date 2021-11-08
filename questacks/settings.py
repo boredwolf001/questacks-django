@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'taggit',
     'ckeditor_uploader',
-    'markdownify.apps.MarkdownifyConfig',
 
     'base.apps.BaseConfig',
 ]
@@ -144,7 +143,8 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
         'toolbar_Custom': [
-            ['Bold', 'Link', 'Italic', 'Undo', 'Redo', 'Blockquote', 'BulletedList', 'NumberedList', 'Heading', 'HorizontalRule', 'Image', 'CodeSnippet']
+            ['Bold', 'Link', 'Italic', 'Undo', 'Redo', 'Blockquote', 'BulletedList',
+                'NumberedList', 'Heading', 'HorizontalRule', 'Image', 'CodeSnippet']
         ],
         'extraPlugins': 'codesnippet'
     },

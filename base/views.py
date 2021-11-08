@@ -144,7 +144,7 @@ def tagged_questions(request, tag):
 
 def inbox(request):
       user_inbox = get_object_or_404(models.Inbox, user=request.user)
-      inbox_items = user_inbox.inboxitem_set.all().order_by('-created_at')
+      inbox_items = user_inbox.inboxitem_set.filter(read=False).order_by('-created_at')
       for item in inbox_items:
             item.read = True
             item.save()

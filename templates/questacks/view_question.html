@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load humanize %}
-{% load markdownify %}
 {% block content %}
 <div style="position: relative; width: 1000px">
   <h1>{{ question.title }}</h1>
@@ -54,7 +53,7 @@
   </h3>
   <div>
     {% for answer in question.answer_set.all %}
-    <div class="card mb-2;" style="width: 600px;">
+    <div class="card mb-2" style="width: 600px;">
       <div class="card-body">
         <div class="card-text">{{ answer.answer_text|safe }}</div>
         <div class="rounded p-2 mb-3" style="background-color: #d9eaf7; width: fit-content; float: right;">

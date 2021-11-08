@@ -64,6 +64,7 @@ a {
 
 pre,
 code {
+  background-color: rgb(223, 223, 223);
   font-family: 'Cascadia Code', 'Source Code Pro', monospace;
   font-size: 15px;
   border: none !important;

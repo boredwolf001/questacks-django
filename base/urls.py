@@ -10,7 +10,8 @@ urlpatterns = [
     path('questions/submit', views.add_question, name='ask_question'),
     path('questions/<int:id>', views.view_question, name='view_question'),
     path('questions/tagged/<str:tag>', views.tagged_questions, name='tagged'),
-    path('questions/<int:question_id>/answer/submit', views.new_answer, name='new_answer'),
+    path('questions/<int:question_id>/answer/submit',
+         views.new_answer, name='new_answer'),
     path('inbox', views.inbox, name='inbox'),
 
     # Auth stuff
