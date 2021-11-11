@@ -6,6 +6,13 @@
       <h1>All Questions</h1>
       <a href="{% url 'base:ask_question' %}" class="btn btn-primary">Ask Question</a>
 </div>
+
+<div class="btn-group">
+      <a id="orderBtn" href="?order_by=newest" class="btn btn-outline-primary">Newest</a>
+      <a id="orderBtn" href="?order_by=oldest" class="btn btn-outline-primary">Oldest</a>
+      <a id="orderBtn" href="?order_by=popular" class="btn btn-outline-primary">Popular</a>
+</div>
+
 {% if questions %}
 {% for question in questions %}
 
@@ -16,4 +23,17 @@
 {% else %}
 
 {% endif %}
+
+<script>
+
+      const orderBtns = document.querySelectorAll('#orderBtn')
+      orderBtns.forEach(btn => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderBy = urlParams.get('order_by');
+
+            if (btn.innerHTML.toLowerCase() == orderBy) {
+                  btn.className = 'btn btn-primary'
+            }
+      })
+</script>
 {% endblock content %}
